@@ -33,12 +33,13 @@ def get_user_name() -> str:
 def get_password() -> str:
     return ConfigManager.user_pass
 
+
 @fixture
-def get_logged_home_page(open_login_page,get_user_name,get_password) -> HomePage:
+def get_logged_home_page(open_login_page, get_user_name, get_password) -> HomePage:
     try:
         return HomePage(open_login_page).find_user_name_el()
     except TimeoutException:
-        LoginPage(open_login_page).do_login(get_user_name,get_password)
+        LoginPage(open_login_page).do_login(get_user_name, get_password)
         return HomePage(open_login_page)
 
 
@@ -47,16 +48,17 @@ def go_to_blue_red_books_page(get_logged_home_page):
     home_page = get_logged_home_page
     home_page.go_to_blue_red_books_page()
     return BlueRedBooksPage(home_page.driver)
+
+
 @fixture
 def go_to_jd_page(get_logged_home_page):
     home_page = get_logged_home_page
     home_page.go_to_jd_page()
     return JDPage(home_page.driver)
+
+
 @fixture
 def go_to_reports_proces_page(get_logged_home_page):
     home_page = get_logged_home_page
     home_page.go_to_reports_proces_page()
     return Reports_ProcesPage(home_page.driver)
-
-
-
