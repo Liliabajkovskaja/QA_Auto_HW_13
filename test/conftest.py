@@ -10,10 +10,19 @@ from page_object.reports_proces_page import Reports_ProcesPage
 from utils.config_manager import ConfigManager
 from utils.driver_factory import DriverFactory
 
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
 
 @fixture(scope='session')
 def get_driver() -> WebDriver:
-    driver = DriverFactory(ConfigManager.browser).get_driver()
+    service = Service(executable_path='/usr/local/bin/chromedriver')
+    options = webdriver.ChromeOptions()
+    options.add_argument('--no-sandbox')
+    options.add_argument('--headless')
+    options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(service=service, options=options)
+    # driver = DriverFactory(ConfigManager.browser).get_driver()
     yield driver
     driver.quit()
 
@@ -55,7 +64,6 @@ def go_to_jd_page(get_logged_home_page):
     home_page = get_logged_home_page
     home_page.go_to_jd_page()
     return JDPage(home_page.driver)
-
 
 @fixture
 def go_to_reports_proces_page(get_logged_home_page):

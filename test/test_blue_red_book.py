@@ -1,6 +1,8 @@
 import pytest
 from page_object.home_page import HomePage
 import time
+# import allure
+
 
 
 @pytest.mark.smoke
@@ -13,14 +15,21 @@ def test_go_to_blue_red_books_page_and_find_element(go_to_blue_red_books_page):
 @pytest.mark.regression
 def test_add_income(go_to_blue_red_books_page):
     blue_red_books_page = go_to_blue_red_books_page
+    time.sleep(1)
     el = blue_red_books_page.click_add_income_button()
+    time.sleep(1)
+
     el.find_basic_articles()
 
 
 @pytest.mark.regression
 def test_add_costs(go_to_blue_red_books_page):
     blue_red_books_page = go_to_blue_red_books_page
+    time.sleep(1)
+
     el = blue_red_books_page.click_add_cost_button()
+    time.sleep(1)
+
     el.find_costs_cost_trademarks()
 
 
